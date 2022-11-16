@@ -1,0 +1,41 @@
+conf term
+hostname CSR1
+int l0
+ip address 1.1.1.1 255.255.255.0
+ip nat inside
+exit
+
+!Ctrl plane
+crypto isakmp policy 1
+encr 3des
+hash md5
+authentication pre-share
+group 2
+lifetime 86400
+exit
+
+crypto isakmp key cisco address 172.16.0.2
+ip access-list extended VPN-ACL
+permit ip 1.1.1.0 0.0.0.255 2.2.2.0 0.0.0.255
+exit
+
+!data plane
+crypto ipsec transform-set tran1 esp-3des esp-md5-hmac
+crypto map Crypt 10 ipsec-isakmp
+set peer 172.16.0.2
+set transform-set tran1
+match address VPN-ACL
+exit
+
+ip access-list extended 100 
+ deny ip 1.1.1.0 0.0.0.255 2.2.2.0 0.0.0.255
+ permit ip 1.1.1.0 0.0.0.255 any
+ip nat inside source list 100 interface GigabitEthernet2 overload
+ip route 2.2.2.0 255.255.255.0 GigabitEthernet2
+
+interface gi 2
+ip add 172.16.0.1 255.255.255.0
+no shut 
+crypto map Crypt
+ip nat out
+exit
