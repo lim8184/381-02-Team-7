@@ -18,8 +18,8 @@ headers = {'Content-Type': 'application/yang-data+json',
             'Accept': 'application/yang-data+json'}
 
 # Bot Details
-bot_email = 
-teams_token = 
+bot_email = '381-02-Team-7@webex.bot'
+teams_token = 'MzEyZjY1MTgtMzg3Yi00MGM3LThmN2YtMzMzNmVjNzc4ODM1OGEyNDAwOWMtNmYx_P0A1_da087be3-a5c4-42e0-91c2-0fc6d3da3fdb'
 bot_url = 
 bot_app_name = 'CNIT-381 Final Project Chat Bot'
 
