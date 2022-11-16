@@ -46,3 +46,8 @@ def greeting(incoming_msg):
     response.markdown += "\n\nSee what I can do by asking for **/help**."
     return response
 
+# Create a function to pull the current ipv4 configuration from the router
+
+if __name__ == '__main__':
+    # Run Bot
+    bot.run(host='0.0.0.0',port=5000)
