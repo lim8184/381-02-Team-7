@@ -22,14 +22,13 @@ print(xml.dom.minidom.parseString(netconf_reply.xml).toprettyxml())
 
  
 netconf_loopback = """ 
-<config> 
- <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native"> 
-  <interface>
-   <interface operation="delete">
-            <name>Loopback1</name> 
-  </interface> 
- </native> 
-</config> 
+<config>
+        <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+                <interface operation="delete">
+                        <name>Loopback1</name>
+                </interface>
+        </interfaces>
+</config>
 """ 
 netconf_reply = m.edit_config(target="running", config=netconf_loopback) 
 print(xml.dom.minidom.parseString(netconf_reply.xml).toprettyxml()) 
