@@ -1,0 +1,16 @@
+{
+    "router:CSR1": {
+      "IP": "192.168.56.104",
+      "type": "iosxr",
+      "user": "cisco",
+      "password": "cisco123!",
+      "rr": "reflector"
+    },
+    "router:CSR2": {
+      "IP": "192.168.56.105",
+      "type": "iosxr",
+      "user": "cisco",
+      "password": "cisco123!",
+      "rr": "client"
+    }
+  }
