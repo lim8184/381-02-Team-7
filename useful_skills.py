@@ -1,6 +1,8 @@
 import os
 import sys
-import myparamiko as m
+import paramiko
+import time
+import datetime
 ### For RESTCONF
 import requests
 import json
@@ -42,9 +44,45 @@ def get_configured_interfaces(url_base,headers,username,password):
                             headers=headers,
                             verify=False
                             )
-    return response.json()["ietf-interfaces:interfaces"]["interface"]
+   return response.json()["ietf-interfaces:interfaces"]["interface"]
 
 
+"""
+def getInterfaces(router):
+    ## Return the output of "show ip int br"
+    sshClient = paramiko.SSHClient()
+    sshClient.connect(**router)
+    shell = sshClient.invoke_shell()
+    shell.send('show ip interface brief')
+    time.sleep(1)
+    output = shell.resv(10000)
+    output = output.decode()
+    sshClient.close()
+    return output
+"""
+
+def getInterfaces(url_base,headers,username,password):
+    ### This code is copied from lab_12. This will NOT be the final version.
+    url = url_base + '/data/ietf-interfaces:interfaces'
+    
+    # this statement performs a GEt on the specified url
+    response = requests.get(url,auth=(username,password),headers=headers,verify=False)
+    return response.json()['ietf-interfaces:interfaces']['interface']
+    
+
+
+def changehostname(router,hostname):
+    ## Change the hostname of a router to what is specificed
+    ## Currently WIP! If this is not implemented, pretend this function does not exist
+    sshClient = paramiko.SSHClient()
+    sshClient.connect(**router)
+    shell = sshClient.invoke_shell()
+    shell.send('configure terminal')
+    shell.send('hostname ' + hostname)
+    shell.send('exit')
+    sshClient.close()
+    return true
+            
 if __name__ == "__main__":
     import routers
     # Router Info 

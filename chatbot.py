@@ -47,6 +47,29 @@ def greeting(incoming_msg):
     return response
 
 # Create a function to pull the current ipv4 configuration from the router
+def getInterfaces(incoming_msg)
+    ## Return information about interfaces
+    response = Response()
+    ints = useful.getInterfaces(url_base,headers,username,password) ## ??
+    if len(ints) == 0:
+        response.markdown = 'There are no devices'
+    else:
+        response.markdown = 'These are the following interfaces present:\n\n'
+    for term in ints:
+        reponse.markdown += '*Name:{}\n'.format(term['name'])
+        try:
+            response.markdown += 'Ipv4 Address::{}\{}\n'.format(term['ietf-ip:ipv4']['address'][0]['ip'],term['ietf-ip:ipv4']['address'][0]['netmask'])
+        except KeyError:
+            response.markdown += 'IP Address: N/A'
+
+# Set the bot's greeting
+bot.set_greeting(greeting)
+
+# Add the bot's commands
+bot.add_command('show interfaces', 'Show the interfaces and their ipv4 addresses', getInterfaces)
+
+# Remove the default '/echo' command (useful now for debugging?)
+# bot.remove_command('/echo')
 
 if __name__ == '__main__':
     # Run Bot
