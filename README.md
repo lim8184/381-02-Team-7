@@ -1,5 +1,7 @@
 CNIT 381 Chatbot Final Project
+
 Monitoring:
+
 For monitoring we used Ansible to automate the process of changing the necessary crypto settings on our cisco devices to function with a dhcp enabled neighbor that will potentially have a constantly changing interface configuration.
 
 Using Ansible we can make conditionals and check for facts from our cisco devices to know when our crypto session for the vpn is down. 
