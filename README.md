@@ -13,3 +13,11 @@ The code will look like the following
 ![Screenshot 2022-12-05 231335](https://user-images.githubusercontent.com/118213821/205822337-f9165fc0-a4ad-43f5-b96b-b0a30d835522.png)
 
 The delegate_to line is to ensure that we make sure only the devices that we running will run the code. In this instance CSR2 is the one delegated to run the task.
+
+Following this we have a check which is the one where all the future conditionals will be based on. This requires two tasks as we will need to extract the specific data we need from this as well.
+
+The first task is to just send a show crypto session command get the status output from the cisco device and register it to a variable. Then the second task will take that variable and create a new variable where it only takes the necessary part (Which in our case will be UP-ACTIVE when the connection is up) and stores it in that variable.
+
+![Screenshot 2022-12-05 232234](https://user-images.githubusercontent.com/118213821/205823455-c3fa9be2-d453-4691-8833-4e7da169a670.png)
+
+We use the .stdout tag on the end of the command to get the raw output of the variable as ansible will put a lot of formatting on top of that. The following parts with .split[0] just tells what parts need to be cut off from the value so we can get what we need, which is UP-ACTIVE
