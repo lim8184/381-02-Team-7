@@ -1,0 +1,87 @@
+---
+- name: Save IP address
+  hosts: all
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  gather_facts: false
+  connection: network_cli
+  
+
+
+  tasks:
+   - name: Get current CSR1 IP address
+     ios_command: 
+       commands: "show ip int bri"
+     register: var_ip_addr
+     delegate_to: CSR1
+
+   - name: Ping to check tunnel status
+     ios_command:
+       commands:
+         - clear crypto session
+         - ping 1.1.1.1 source 2.2.2.2
+     delegate_to: CSR2
+
+   - name: Save crypto response to variable
+     ios_command:
+       commands:
+         - show crypto session
+     register: ping_check
+     delegate_to: CSR2
+     
+   - name: Set new variable to only relevant information
+     set_fact:
+       check: "{{ping_check.stdout[0].split('\n')[3].split()[2]}}"
+       ip_addr: "{{  var_ip_addr.stdout[0].split('\n')[2].split()[1] }}"
+     
+   - name: Check old cisco isakmp
+     ios_command:
+       commands:
+         - "show run | s crypto isakmp key cisco address"
+     register: old_isakmp
+     when: check != "UP-ACTIVE"
+     delegate_to: CSR2
+     
+   - name: Delete old cisco isakmp
+     ios_config:
+       commands:
+         - "no {{old_isakmp.stdout[0]}}"
+     when: check != "UP-ACTIVE"
+     delegate_to: CSR2
+     
+   - name: Check old peer
+     ios_command:
+       commands:
+         - "show run | s set peer"
+     register: old_peer
+     when: check != "UP-ACTIVE"
+     delegate_to: CSR2
+     
+   - name: Delete old peer
+     ios_config:
+       lines:
+         - "no {{old_peer.stdout[0]}}"
+       parents: crypto map Crypt 10 ipsec-isakmp
+     when: check != "UP-ACTIVE"
+     delegate_to: CSR2
+     
+   - name: Change crypto isakmp address to new ip address
+     ios_config:
+       lines:
+         - "crypto isakmp key cisco address {{  var_ip_addr.stdout[0].split('\n')[2].split()[1] }}"
+     when: check != "UP-ACTIVE"
+     delegate_to: CSR2
+
+   - name: Change peer to new ip address
+     ios_config:
+       lines:
+         - "set peer {{ip_addr}}"
+       parents: crypto map Crypt 10 ipsec-isakmp
+     when: check != "UP-ACTIVE"
+     delegate_to: CSR2
+   
+   - name: Clear previous crypto session
+     ios_command:
+       commands: "clear crypto session"
+   
+
