@@ -46,3 +46,6 @@ Set peer is equally as simple, but it'll use a few more things that we've been u
 
 After all this we will clear the crypto session one more time to make sure the next person who tries to use the vpn connection will not get stuck because of the previous session.
 
+#### Running Ansible playbook through python
+To run the ansible playbook required to monitor the network we will be using the subprocess module in python. This will require us to import call from the subprocess module. After this is done you can execute cli commands through python. Like the below example.
+##### call(["ansible-playbook","monitor.yml"])
