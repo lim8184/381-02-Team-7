@@ -68,7 +68,7 @@
    - name: Change crypto isakmp address to new ip address
      ios_config:
        lines:
-         - "crypto isakmp key cisco address {{  var_ip_addr.stdout[0].split('\n')[2].split()[1] }}"
+         - "crypto isakmp key cisco address {{ip_addr}}"
      when: check != "UP-ACTIVE"
      delegate_to: CSR2
 
