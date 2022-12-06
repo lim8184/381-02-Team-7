@@ -11,3 +11,5 @@ Then after this we send a ping to 1.1.1.1 from 2.2.2.2, this is because we want 
 The code will look like the following
 
 ![Screenshot 2022-12-05 231335](https://user-images.githubusercontent.com/118213821/205822337-f9165fc0-a4ad-43f5-b96b-b0a30d835522.png)
+
+The delegate_to line is to ensure that we make sure only the devices that we running will run the code. In this instance CSR2 is the one delegated to run the task.
