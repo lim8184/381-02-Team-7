@@ -5,6 +5,8 @@ from webexteamsbot.models import Response
 import routers
 import useless_skills as useless
 import useful_skills as useful
+import netconf_add as netadd
+import netconf_delete as netdel
 ### Utilites for Ansible Monitor
 from subprocess import call
 
@@ -108,6 +110,19 @@ def monitor(incoming_msg):
     response.markdown = "I finished monitoring the vpn connection!"
     return response
 
+def loopback_add(incoming_msg):
+    response = Response()
+    netadd.netconf_add()
+    response.markdown = "Loopback 1 has been created"
+    return response
+
+def loopback_delete(incoming_msg):
+    response = Response()
+    netdel.netconf_delete()
+    response.markdown = "Loopback 1 has been deleted"
+    return response
+
+
 # Set the bot greeting.
 bot.set_greeting(greeting)
 
@@ -123,8 +138,11 @@ bot.add_command("showcard", "show an adaptive card", useless.show_card)
 bot.add_command("dosomething", "help for do something", useless.do_something)
 bot.add_command("time", "Look up the current time", useless.current_time)
 bot.add_command("monitor", "Check VPN status", monitor)
+bot.add_command("Add loopback", "Adds new loopback", loopback_add)
+bot.add_command("Delete loopback", "Deletes loopback", loopback_delete)
 # Every bot includes a default "/echo" command.  You can remove it, or any
 bot.remove_command("/echo")
+
 
 if __name__ == "__main__":
     # Run Bot
