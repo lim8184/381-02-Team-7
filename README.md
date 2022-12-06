@@ -34,3 +34,15 @@ The set peer command requires us to use a special tag after our normal ios_confi
 
 ![Screenshot 2022-12-05 233917](https://user-images.githubusercontent.com/118213821/205825823-990c07bc-3671-40f1-93bd-7d4960cc18a6.png)
 
+The final steps will require us to get the ip address from CSR1. In our circumstance, we've already saved that into a variable called ip_addr. This was done at the beginning of the script, so that it would always have it even if it wasn't necessary. With the ip address of CSR1's Gig 2 interface we are able to use it in the following steps pretty much as we've been doing so far. 
+
+With crypto isakmp key we need the ip address then we will put {{}} brackets around ip_addr, so that the command will know that we are using a variable.
+
+![Screenshot 2022-12-05 234352](https://user-images.githubusercontent.com/118213821/205826570-ac7b8735-f1a8-4df8-9724-72e3877d18aa.png)
+
+Set peer is equally as simple, but it'll use a few more things that we've been using so far. Mainly the parent feature as set peer on a different level that ios_config cannot use without it.
+
+![Screenshot 2022-12-05 234409](https://user-images.githubusercontent.com/118213821/205826792-71c88049-4490-4c4b-b5ef-5fe4f9d98c7d.png)
+
+After all this we will clear the crypto session one more time to make sure the next person who tries to use the vpn connection will not get stuck because of the previous session.
+
