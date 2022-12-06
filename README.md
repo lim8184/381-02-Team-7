@@ -9,4 +9,5 @@ We do this by first clearing all crypto sessions. We do this because if there wa
 Then after this we send a ping to 1.1.1.1 from 2.2.2.2, this is because we want to make sure the loopbacks can ping each other. We do this from CSR2 because a majority of the changes we will be making will be on this device, and we are assuming we have minimal ability to interact with CSR1 other then getting the interface.
 
 The code will look like the following
+
 ![Screenshot 2022-12-05 231335](https://user-images.githubusercontent.com/118213821/205822337-f9165fc0-a4ad-43f5-b96b-b0a30d835522.png)
