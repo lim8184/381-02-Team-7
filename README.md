@@ -1,6 +1,6 @@
-CNIT 381 Chatbot Final Project
+# CNIT 381 Chatbot Final Project
 
-Monitoring:
+## Monitoring
 
 For monitoring we used Ansible to automate the process of changing the necessary crypto settings on our cisco devices to function with a dhcp enabled neighbor that will potentially have a constantly changing interface configuration.
 
@@ -21,3 +21,16 @@ The first task is to just send a show crypto session command get the status outp
 ![Screenshot 2022-12-05 232234](https://user-images.githubusercontent.com/118213821/205823455-c3fa9be2-d453-4691-8833-4e7da169a670.png)
 
 We use the .stdout tag on the end of the command to get the raw output of the variable as ansible will put a lot of formatting on top of that. The following parts with .split[0] just tells what parts need to be cut off from the value so we can get what we need, which is UP-ACTIVE
+
+### The following tasks will start to use an Ansible condiitonal When. This is a pretty simple conditional, all it does is compare two items and if the result is true then the task will run. In this case we compared the variable from the previous step to "UP-ACTIVE", and whenever the variable didn't match this than it would run the task.
+
+The next thing that the task will do is to solve a problem with security. This part doesn't need to be done if you don't care about keeping previous entries of the crypto session. But to prevent anyone from spoofing a previous ip address we'll be removing the old entries.
+  
+This section is quite simple. We will just utilize cisco's pipe (|) filtering to get the pre-exsiting commands from the running configuration.
+#### Show run | s cisco isakmp key cisco address
+This will save the result to another variable, with the content being the command that we need to remove. We will need to do this twice, for both the crypto isakmp key, and set peer commands.
+
+The set peer command requires us to use a special tag after our normal ios_config. This being the parent command, as "set peer" is in a different level that requires us to state that we need to enter "crypto map Crypt 10 ipsec-isakmp" first. Otherwise we'll encounter errors as ios_config does not allow direct manipulation of that level without telling it that we are going into it first.
+
+![Screenshot 2022-12-05 233917](https://user-images.githubusercontent.com/118213821/205825823-990c07bc-3671-40f1-93bd-7d4960cc18a6.png)
+
