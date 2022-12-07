@@ -61,6 +61,7 @@ def getInterfaces(incoming_msg)
             response.markdown += 'Ipv4 Address::{}\{}\n'.format(term['ietf-ip:ipv4']['address'][0]['ip'],term['ietf-ip:ipv4']['address'][0]['netmask'])
         except KeyError:
             response.markdown += 'IP Address: N/A'
+    return response
 
 # Set the bot's greeting
 bot.set_greeting(greeting)
