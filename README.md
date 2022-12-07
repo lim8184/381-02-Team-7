@@ -22,7 +22,7 @@ The first task is to just send a show crypto session command get the status outp
 
 We use the .stdout tag on the end of the command to get the raw output of the variable as ansible will put a lot of formatting on top of that. The following parts with .split[0] just tells what parts need to be cut off from the value so we can get what we need, which is UP-ACTIVE
 
-### The following tasks will start to use an Ansible condiitonal When. This is a pretty simple conditional, all it does is compare two items and if the result is true then the task will run. In this case we compared the variable from the previous step to "UP-ACTIVE", and whenever the variable didn't match this than it would run the task.
+### The following tasks will start to use an Ansible conditional When. This is a pretty simple conditional, all it does is compare two items and if the result is true then the task will run. In this case we compared the variable from the previous step to "UP-ACTIVE", and whenever the variable didn't match this than it would run the task.
 
 The next thing that the task will do is to solve a problem with security. This part doesn't need to be done if you don't care about keeping previous entries of the crypto session. But to prevent anyone from spoofing a previous ip address we'll be removing the old entries.
   
