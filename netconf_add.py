@@ -26,16 +26,6 @@ def netconf_add():
     netconf_reply = m.get_config(source="running", filter=netconf_filter) 
     print(xml.dom.minidom.parseString(netconf_reply.xml).toprettyxml()) 
  
-    netconf_hostname = """ 
-    <config> 
-    <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native"> 
-        <hostname>CSR1kv</hostname> 
-    </native> 
-    </config> 
-    """ 
-    netconf_reply = m.edit_config(target="running", config=netconf_hostname) 
-    print(xml.dom.minidom.parseString(netconf_reply.xml).toprettyxml()) 
- 
     netconf_loopback = """ 
     <config> 
     <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native"> 
