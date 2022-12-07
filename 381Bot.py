@@ -122,6 +122,24 @@ def loopback_delete(incoming_msg):
     response.markdown = "Loopback 1 has been deleted"
     return response
 
+# Create a function to pull the current ipv4 configuration from the router
+def getInterfaces(incoming_msg)
+    ## Return information about interfaces
+    response = Response()
+    ints = useful.getInterfaces(url_base,headers,username,password) ## ??
+    if len(ints) == 0:
+        response.markdown = 'There are no devices'
+    else:
+        response.markdown = 'These are the following interfaces present:\n\n'
+    for term in ints:
+        reponse.markdown += '*Name:{}\n'.format(term['name'])
+        try:
+            response.markdown += 'Ipv4 Address::{}\{}\n'.format(term['ietf-ip:ipv4']['address'][0]['ip'],term['ietf-ip:ipv4']['address'][0]['netmask'])
+        except KeyError:
+            response.markdown += 'IP Address: N/A'
+    return response
+
+
 
 # Set the bot greeting.
 bot.set_greeting(greeting)
@@ -140,6 +158,7 @@ bot.add_command("time", "Look up the current time", useless.current_time)
 bot.add_command("monitor", "Check VPN status", monitor)
 bot.add_command("Add loopback", "Adds new loopback", loopback_add)
 bot.add_command("Delete loopback", "Deletes loopback", loopback_delete)
+bot.add_command('show interfaces', 'Show the interfaces and their ipv4 addresses', getInterfaces)
 # Every bot includes a default "/echo" command.  You can remove it, or any
 bot.remove_command("/echo")
 
