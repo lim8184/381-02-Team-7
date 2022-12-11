@@ -9,11 +9,11 @@ This is done through creating Python code that is defined as a function to be ca
 
 The code will look like the following for the add loopback code
 
-image
+![Add Screenshot](https://user-images.githubusercontent.com/118213960/206931669-ae70305a-3de4-4ad2-9824-ab09ca90e384.PNG)
 
 The code will look like the following for the delete loopback code
 
-image
+![Delete Screenshot](https://user-images.githubusercontent.com/118213960/206931677-70960cb1-39d8-4a60-a7b7-ceb4baf915a7.PNG)
 
 The print(xml.dom.minidom.parseString(netconf_reply.xml).toprettyxml()) command is used to allow the output to be depicted in a more readable state rather than the original xml format.
 The prior command defines the desired loopback interface configuration with ip address and subnet mask.
