@@ -1,5 +1,28 @@
 # CNIT 381 Chatbot Final Project
 
+## NETCONF
+
+Our NETCONF skill provides the capability to add and delete a loopback interface but can be modified to add or delete any number of interfaces.
+
+Using NETCONF we were able to directly connect to one of our routers in order to modify the router configuration.
+This is done through creating Python code that is defined as a function to be called by our chat bot. This is done in order to ease the process of creating or deleting interfaces on any number of routers.
+
+The code will look like the following for the add loopback code
+
+image
+
+The code will look like the following for the delete loopback code
+
+image
+
+The print(xml.dom.minidom.parseString(netconf_reply.xml).toprettyxml()) command is used to allow the output to be depicted in a more readable state rather than the original xml format.
+The prior command defines the desired loopback interface configuration with ip address and subnet mask.
+
+The delete file has the same output toprettyxml command used for the same purpose as above.
+The delete code simply tells the router that the interface known as Loopback1, or whichever interface you wish to call, needs to be deleted.
+
+The NETCONF code is simple but easy to use and understand.  It can be modified at will to change the functionality of the code without impacting the chat bot.
+
 ## Monitoring
 
 For monitoring we used Ansible to automate the process of changing the necessary crypto settings on our cisco devices to function with a dhcp enabled neighbor that will potentially have a constantly changing interface configuration.
