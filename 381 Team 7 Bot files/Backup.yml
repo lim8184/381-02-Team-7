@@ -1,0 +1,15 @@
+---
+- name: Save IP address
+  hosts: all
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+   - name: backup configs
+     ios_config:
+       backup: yes
+       backup_options:
+         filename: "{{inventory_hostname}}_backup.cfg"
+         dir_path: /home/devasc/sample-app/backup
