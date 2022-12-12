@@ -1,5 +1,15 @@
 # CNIT 381 Chatbot Final Project
 
+## PARAMIKO
+
+Our Paramiko skill involves getting information about the IP configuration of the interfaces on the router. This is done through running the "show ip interface brief" command through SSH, and outputting the result to the end user. We purposefully left information about DHCP and whether the interfaces were up or not, as these additional pieces of information is usually also wanted whenever an end user is looking for the IP configuration of interfaces.
+
+In order to cut out the extraneous text, we first split the shell output into an array of strings, where each string contained a line of the output. We then cut the first 15 lines and the last line from the output. Lastly, we joined the lines back together into one string, inputting newline characters at the end of each string in the array.
+
+Our biggest issue was actually getting the SSH connection to work through the bot. We solved this by making sure the following line was added:
+
+##### sshClient.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
 ## NETCONF
 
 Our NETCONF skill provides the capability to add and delete a loopback interface but can be modified to add or delete any number of interfaces.
