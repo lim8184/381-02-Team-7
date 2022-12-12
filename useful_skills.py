@@ -63,12 +63,12 @@ def getInterfaces(router):
     sshClient.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     sshClient.connect(**router)
     shell = sshClient.invoke_shell()
+    shell.send('show ip interface brief\n')
     time.sleep(1)
     output = shell.recv(10000)
     output = output.decode('utf-8')
     sshClient.close()
-    output = '\n'.join(output.splitlines()[15:-1])
-    return output
+    return '\n'.join(output.splitlines()[16:-1])
 
 def changehostname(router,hostname):
     ## Change the hostname of a router to what is specificed

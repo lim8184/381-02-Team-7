@@ -127,9 +127,9 @@ def loopback_delete(incoming_msg):
 def getInterfaces(incoming_msg):
     ## Return information about interfaces
     response = Response()
-    routerInfo = {'hostname':device_address,'username':device_username,'password':device_password,'look_for_keys':False,'allow_agent':False}
+    routerInfo = {'hostname':device_address,'port':'22','username':device_username,'password':device_password,'look_for_keys':False,'allow_agent':False}
     ints = useful.getInterfaces(routerInfo) ## ??
-    response.markdown = ints + '\n'
+    response.markdown = ints
     return response
     #### LEGACY
     if len(ints) == 0:
@@ -169,3 +169,4 @@ bot.remove_command("/echo")
 if __name__ == "__main__":
     # Run Bot
     bot.run(host="0.0.0.0", port=5000)
+
