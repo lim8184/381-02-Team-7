@@ -129,6 +129,9 @@ def getInterfaces(incoming_msg):
     response = Response()
     routerInfo = {'hostname':device_address,'username':device_username,'password':device_password,'look_for_keys':'false'}
     ints = useful.getInterfaces(routerInfo) ## ??
+    response.markdown += ints
+    return reponse
+    #### LEGACY
     if len(ints) == 0:
         response.markdown = 'There are no devices'
     else:
