@@ -44,10 +44,8 @@ def get_configured_interfaces(url_base,headers,username,password):
                             headers=headers,
                             verify=False
                             )
-   return response.json()["ietf-interfaces:interfaces"]["interface"]
+    return response.json()["ietf-interfaces:interfaces"]["interface"]
 
-
-"""
 def getInterfaces(router):
     ## Return the output of "show ip int br"
     sshClient = paramiko.SSHClient()
@@ -69,6 +67,7 @@ def getInterfaces(url_base,headers,username,password):
     response = requests.get(url,auth=(username,password),headers=headers,verify=False)
     return response.json()['ietf-interfaces:interfaces']['interface']
     
+"""
 
 
 def changehostname(router,hostname):
