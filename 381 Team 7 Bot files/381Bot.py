@@ -74,18 +74,6 @@ def getInterfaces(incoming_msg):
     ints = useful.getInterfaces(routerInfo) ## ??
     response.markdown = ints
     return response
-    #### LEGACY
-    if len(ints) == 0:
-        response.markdown = 'There are no devices'
-    else:
-        response.markdown = 'These are the following interfaces present:\n\n'
-    for term in ints:
-        response.markdown += '*Name:{}\n'.format(term['name'])
-        try:
-            response.markdown += 'Ipv4 Address::{}\{}\n'.format(term['ietf-ip:ipv4']['address'][0]['ip'],term['ietf-ip:ipv4']['address'][0]['netmask'])
-        except KeyError:
-            response.markdown += 'IP Address: N/A\n'
-    return response
 
 
 bot.set_greeting(greeting)
