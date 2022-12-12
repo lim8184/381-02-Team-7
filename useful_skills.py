@@ -46,19 +46,7 @@ def get_configured_interfaces(url_base,headers,username,password):
                             )
     return response.json()["ietf-interfaces:interfaces"]["interface"]
 
-def getInterfaces(router):
-    ## Return the output of "show ip int br"
-    sshClient = paramiko.SSHClient()
-    sshClient.connect(**router)
-    shell = sshClient.invoke_shell()
-    shell.send('show ip interface brief')
-    time.sleep(1)
-    output = shell.resv(10000)
-    output = output.decode()
-    sshClient.close()
-    return output
 """
-
 def getInterfaces(url_base,headers,username,password):
     ### This code is copied from lab_12. This will NOT be the final version.
     url = url_base + '/data/ietf-interfaces:interfaces'
@@ -69,6 +57,18 @@ def getInterfaces(url_base,headers,username,password):
     
 """
 
+def getInterfaces(router):
+    ## Return the output of "show ip int br"
+    sshClient = paramiko.SSHClient()
+    sshClient.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    sshClient.connect(**router)
+    shell = sshClient.invoke_shell()
+    time.sleep(1)
+    output = shell.recv(10000)
+    output = output.decode('utf-8')
+    sshClient.close()
+    output = '\n'.join(output.splitlines()[15:-1])
+    return output
 
 def changehostname(router,hostname):
     ## Change the hostname of a router to what is specificed

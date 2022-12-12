@@ -25,7 +25,7 @@ headers = {'Content-Type': 'application/yang-data+json',
 # Bot Details
 bot_email = '381-02-Team-7@webex.bot'
 teams_token = 'MzEyZjY1MTgtMzg3Yi00MGM3LThmN2YtMzMzNmVjNzc4ODM1OGEyNDAwOWMtNmYx_P0A1_da087be3-a5c4-42e0-91c2-0fc6d3da3fdb'
-bot_url = 'https://d9fc-144-13-254-18.ngrok.io'
+bot_url = 'https://3966-144-13-254-18.ngrok.io'
 bot_app_name = 'CNIT-381 Network Auto Chat Bot'
 
 # Create a Bot Object
@@ -127,10 +127,10 @@ def loopback_delete(incoming_msg):
 def getInterfaces(incoming_msg):
     ## Return information about interfaces
     response = Response()
-    routerInfo = {'hostname':device_address,'username':device_username,'password':device_password,'look_for_keys':'false'}
+    routerInfo = {'hostname':device_address,'username':device_username,'password':device_password,'look_for_keys':False,'allow_agent':False}
     ints = useful.getInterfaces(routerInfo) ## ??
-    response.markdown += ints
-    return reponse
+    response.markdown = ints + '\n'
+    return response
     #### LEGACY
     if len(ints) == 0:
         response.markdown = 'There are no devices'
