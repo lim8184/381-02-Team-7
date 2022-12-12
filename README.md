@@ -1,5 +1,11 @@
 # CNIT 381 Chatbot Final Project
 
+## What is this for?
+
+This is github dedicated to the building and development for a chatbot for a team project.
+This bot uses webex and their associated chat bot materials, including code and such.
+Goes through using paramiko, netconf, and ansible to automate and manage 2 cisco devices.
+
 ## PARAMIKO
 
 Our Paramiko skill involves getting information about the IP configuration of the interfaces on the router. This is done through running the "show ip interface brief" command through SSH, and outputting the result to the end user. We purposefully left information about DHCP and whether the interfaces were up or not, as these additional pieces of information is usually also wanted whenever an end user is looking for the IP configuration of interfaces.
