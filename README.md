@@ -33,6 +33,8 @@ The delete code simply tells the router that the interface known as Loopback1, o
 
 The NETCONF code is simple but easy to use and understand.  It can be modified at will to change the functionality of the code without impacting the chat bot.
 
+## Ansible
+For our Ansible skill we created a playbook to backup our cisco devices. We did this using the backup line that comes with ios_config. This allows for you to tell it a location to backup your files. And it's very simplistic and works reliably.
 ## Monitoring
 
 For monitoring we used Ansible to automate the process of changing the necessary crypto settings on our cisco devices to function with a dhcp enabled neighbor that will potentially have a constantly changing interface configuration.
